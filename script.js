@@ -14,7 +14,8 @@ function initialize(){
     c9 = document.getElementById("c9");
 
     display = document.getElementById("textDisplay");
-    
+    general = document.getElementById("general");
+
     turn = 0;
     player = "";
     bot ="";
@@ -24,17 +25,18 @@ function initialize(){
     for(var i = 0; i < cArray.length; i++){
         //each element in cArray
         var cell = cArray[i];
-        //starting cell are never locked
-        cell.locked = false;
+        //starting cell are always locked until player selects a team
+        cell.locked = true;
         //starting cell innerHTML is blank
         cell.innerHTML = "";
+        cell.style.color = "black";
     }
 }
 
-function change(cell){
+function change1(cell){
     //will run if the cell is not locked
     if(!cell.locked){
-        console.log(turn);
+        //console.log(turn);
         //first player move (aka X)
         //when turn is it is the X's player turn
         if(turn == 0){
@@ -64,6 +66,11 @@ function change(cell){
                 cell.style.color = "black";
             }
         }
+
+        //bot will move here
+        bot();
+
+        //win conditions
         win();
         turn++;
         //will reset turn to 0 if it is greater than 1.
@@ -72,16 +79,106 @@ function change(cell){
         }
     }
 }
+//updated for bot and player movements
+function change(cell){
+    //will run if the cell is not locked
+    if(!cell.locked){
+        console.log(turn);
+        if(player == 0){
+            if(cell.innerHTML == "X"){
+                cell.style.color = "red";
+                cell.innerHTML = "X";
+                cell.locked = true;
 
-function setPlayer(play){
-    if(play == 1){
-        player = "X";
-        bot = "O";
+                general.innerHTML = "You have locked in a block!";
+            }
+            else{
+                cell.innerHTML = "X";
+                cell.style.color = "black";
+            }
+        }
+        else{
+            if(cell.innerHTML == "O"){
+                cell.style.color = "red";
+                cell.innerHTML = "O";
+                cell.locked = true;
+                general.innerHTML = "You have locked in a block!";
+
+            }
+            else{
+                cell.innerHTML = "O";
+                cell.style.color = "black";
+            }
+        }
+
+        win();
+        if(!win()){
+            botMove();
+            win();
+        }
+        //bot will move here
+
+        turn++;
+        //will reset turn to 0 if it is greater than 1.
+        if(turn > 1){
+            turn = 0;
+        }
+    }
+}
+
+function botMove(){
+    var move = "test";
+    if (bot == 0){
+        move = "X";
     }
     else{
-        
-        player = "O";
-        bot = "X";
+        move="O";
+    }
+    //actual algorithm to find out best moves
+    //idea is try to prevent your victory
+    //search through cArray to see where opponent marks are.
+    //find their winning combos and block it.
+    //else puts a mark randomly
+    var possibleMoves = [];
+    for(cell of cArray){
+        //console.log("HTML: " + cell.innerHTML);
+        //console.log("LOCKED: " + cell.locked);
+        if(!cell.locked){
+            possibleMoves.push(cell);
+            //console.log(cell);
+        }
+    }
+    var rand = Math.floor(Math.random()*possibleMoves.length);
+    //console.log(possibleMoves);
+    //console.log(rand);
+    //console.log(possibleMoves[rand]);
+    //change(possibleMoves[rand]);
+    var randCell = possibleMoves[rand];
+    //console.log(randCell);
+    //console.log(randCell.innerHTML);
+    if(randCell.innerHTML != ""){
+        if(randCell.innerHTML == move){
+            general.innerHTML = "BOT has locked a block!";
+            randCell.style.color = "red";
+            randCell.locked = true;
+        }
+        else{
+            general.innerHTML = "BOT has replaced your mark!";
+        }
+    }
+    randCell.innerHTML = move;
+    turn++;
+}
+function setPlayer(play){
+    if(play == 0){
+        player = 0;
+        bot = 1;
+    }
+    else{
+        unlockAll();
+        player = 1;
+        bot = 0;
+        botMove();
     }
     reset();
     console.log("player: " + player);
@@ -96,8 +193,11 @@ function reset(){
         cell.locked = false;
         //starting cell innerHTML is blank
         cell.innerHTML = "";
+        cell.style.color = "black";
+
     }
     display.innerHTML = "";
+    general.innerHTML="";
 }
 function lockAll(){
     for(var i = 0; i < cArray.length; i++){
@@ -107,22 +207,53 @@ function lockAll(){
         cell.locked = true;
     }
 }
-function runGame(){
-
+function unlockAll(){
+    for(var i = 0; i < cArray.length; i++){
+        var cell = cArray[i];
+        //starting cell are always locked until player selects a team
+        cell.locked = false;
+    }
 }
+/*
+function runGame(){
+    if(bot == 0){
+        bot();
+    }
+}
+*/
 //returns true or false based on conditions being meet
 function win(){
     var win = false;
+    //Draw condition. will need to change win to return 0, 1, 2 for win, draw, lose
+    for(cell in cArray){
+        
+    }
     //starting left to right
+
     if(c1.innerHTML !="" && c1.innerHTML == c2.innerHTML && c2.innerHTML == c3.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c1.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        }
+        
         lockAll();
         win = true;
     }
     else if(c4.innerHTML !="" && c4.innerHTML == c5.innerHTML && c5.innerHTML == c6.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c4.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        }
         lockAll();
         win = true;
 
@@ -130,7 +261,14 @@ function win(){
     }
     else if(c7.innerHTML !="" && c7.innerHTML == c8.innerHTML && c8.innerHTML == c9.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c7.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        };
         lockAll();
         win = true;
 
@@ -139,7 +277,14 @@ function win(){
     //top down
     if(c1.innerHTML !="" && c1.innerHTML == c4.innerHTML && c4.innerHTML == c7.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c1.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        }
         lockAll();
         win = true;
 
@@ -147,7 +292,14 @@ function win(){
     }
     else if(c2.innerHTML !="" && c2.innerHTML == c5.innerHTML && c5.innerHTML == c8.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c2.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        }
         lockAll();
         win = true;
 
@@ -155,7 +307,14 @@ function win(){
     }
     else if(c3.innerHTML !="" && c3.innerHTML == c6.innerHTML && c6.innerHTML == c9.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c3.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        }
         lockAll();
         win = true;
 
@@ -164,7 +323,14 @@ function win(){
     //diagonal
     if(c1.innerHTML !="" && c1.innerHTML == c5.innerHTML && c5.innerHTML == c9.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c1.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        }
         lockAll();
         win = true;
 
@@ -172,12 +338,30 @@ function win(){
     }
     else if(c3.innerHTML !="" && c3.innerHTML == c5.innerHTML && c5.innerHTML == c7.innerHTML)
     {
-        display.innerHTML = "YOU WIN";
+        if(winCheck(c3.innerHTML)){
+            display.innerHTML = "PLAYER WON";
+            display.style.color = "green";
+        }
+        else{
+            display.innerHTML = "BOT WON, YOU LOST";
+            display.style.color =  "red";
+        }
         lockAll();
         win = true;
     }
     return win;
 }
-function bot(){
 
+function winCheck(mark){
+    var playerMark = "";
+    if(player == 0){
+        playerMark = "X";
+    }
+    else{
+        playerMark = "O";
+    }
+    if(mark != playerMark){
+        return false;
+    }
+    return true;
 }

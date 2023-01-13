@@ -16,9 +16,14 @@ function initialize(){
     display = document.getElementById("textDisplay");
     general = document.getElementById("general");
 
+    
+
     turn = 0;
     player = "";
     bot ="";
+    //this will keep track of which cells they have previously moved to.
+    playerPrevious = "";
+    botPrevious = "";
 
     cArray = [c1, c2, c3, c4, c5, c6, c7, c8, c9];
     
@@ -32,7 +37,7 @@ function initialize(){
         cell.style.color = "black";
     }
 }
-
+//prototype
 function change1(cell){
     //will run if the cell is not locked
     if(!cell.locked){
@@ -82,14 +87,25 @@ function change1(cell){
 //updated for bot and player movements
 function change(cell){
     //will run if the cell is not locked
-    if(!cell.locked){
+    if(playerPrevious == cell){
+        display.innerHTML = "You've previously selected this block last turn! Pick another one!";
+        display.style.color = "orange";
+    }
+    if(!cell.locked && playerPrevious != cell){
+        general.innerHTML=  "";
         console.log(turn);
+        //
+        display.innerHTML = "";
+        display.style.color = "black";
+        //
         if(player == 0){
+            
+            playerPrevious = cell;
             if(cell.innerHTML == "X"){
                 cell.style.color = "red";
                 cell.innerHTML = "X";
                 cell.locked = true;
-
+                
                 general.innerHTML = "You have locked in a block!";
             }
             else{
@@ -116,8 +132,19 @@ function change(cell){
             botMove();
             win();
         }
-        //bot will move here
+        //determines a draw
+        var allFalse = true;
+        for(cell of cArray){
+            if(!cell.locked){
+                allFalse = false;
+            }
+        }
 
+        if(allFalse && !win()){
+            display.innerHTML = "DRAW!";
+            display.style.color = "grey";
+        }
+        
         turn++;
         //will reset turn to 0 if it is greater than 1.
         if(turn > 1){
@@ -143,7 +170,7 @@ function botMove(){
     for(cell of cArray){
         //console.log("HTML: " + cell.innerHTML);
         //console.log("LOCKED: " + cell.locked);
-        if(!cell.locked){
+        if(!cell.locked && cell != botPrevious){
             possibleMoves.push(cell);
             //console.log(cell);
         }
@@ -157,6 +184,7 @@ function botMove(){
     //console.log(randCell);
     //console.log(randCell.innerHTML);
     if(randCell.innerHTML != ""){
+        botPrevious = randCell;
         if(randCell.innerHTML == move){
             general.innerHTML = "BOT has locked a block!";
             randCell.style.color = "red";
@@ -221,12 +249,15 @@ function runGame(){
     }
 }
 */
-//returns true or false based on conditions being meet
+
+
 function win(){
     var win = false;
     //Draw condition. will need to change win to return 0, 1, 2 for win, draw, lose
     for(cell in cArray){
-        
+        if(!cell.locked){
+
+        }
     }
     //starting left to right
 
@@ -237,7 +268,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         }
         
@@ -251,7 +282,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         }
         lockAll();
@@ -266,7 +297,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         };
         lockAll();
@@ -282,7 +313,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         }
         lockAll();
@@ -297,7 +328,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         }
         lockAll();
@@ -312,7 +343,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         }
         lockAll();
@@ -328,7 +359,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         }
         lockAll();
@@ -343,7 +374,7 @@ function win(){
             display.style.color = "green";
         }
         else{
-            display.innerHTML = "BOT WON, YOU LOST";
+            display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
         }
         lockAll();

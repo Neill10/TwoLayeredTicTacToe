@@ -13,6 +13,7 @@ function initialize(){
     c8 = document.getElementById("c8");
     c9 = document.getElementById("c9");
 
+    title = document.getElementById("title");
     display = document.getElementById("textDisplay");
     general = document.getElementById("general");
 
@@ -161,11 +162,12 @@ function botMove(){
     else{
         move="O";
     }
-    //actual algorithm to find out best moves
+    //actual algorithm to find out best moves (not implemented)
     //idea is try to prevent your victory
     //search through cArray to see where opponent marks are.
     //find their winning combos and block it.
     //else puts a mark randomly
+
     var possibleMoves = [];
     for(cell of cArray){
         //console.log("HTML: " + cell.innerHTML);
@@ -224,8 +226,11 @@ function reset(){
         cell.style.color = "black";
 
     }
+    title ="Tic Tac Toe"
     display.innerHTML = "";
     general.innerHTML="";
+    playerPrevious = "";
+    botPrevious = "";
 }
 function lockAll(){
     for(var i = 0; i < cArray.length; i++){
@@ -264,12 +269,15 @@ function win(){
     if(c1.innerHTML !="" && c1.innerHTML == c2.innerHTML && c2.innerHTML == c3.innerHTML)
     {
         if(winCheck(c1.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
         }
         
         lockAll();
@@ -278,12 +286,16 @@ function win(){
     else if(c4.innerHTML !="" && c4.innerHTML == c5.innerHTML && c5.innerHTML == c6.innerHTML)
     {
         if(winCheck(c4.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
+
         }
         lockAll();
         win = true;
@@ -293,12 +305,16 @@ function win(){
     else if(c7.innerHTML !="" && c7.innerHTML == c8.innerHTML && c8.innerHTML == c9.innerHTML)
     {
         if(winCheck(c7.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
+
         };
         lockAll();
         win = true;
@@ -309,12 +325,16 @@ function win(){
     if(c1.innerHTML !="" && c1.innerHTML == c4.innerHTML && c4.innerHTML == c7.innerHTML)
     {
         if(winCheck(c1.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
+
         }
         lockAll();
         win = true;
@@ -324,12 +344,16 @@ function win(){
     else if(c2.innerHTML !="" && c2.innerHTML == c5.innerHTML && c5.innerHTML == c8.innerHTML)
     {
         if(winCheck(c2.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
+
         }
         lockAll();
         win = true;
@@ -339,12 +363,16 @@ function win(){
     else if(c3.innerHTML !="" && c3.innerHTML == c6.innerHTML && c6.innerHTML == c9.innerHTML)
     {
         if(winCheck(c3.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
+
         }
         lockAll();
         win = true;
@@ -355,12 +383,16 @@ function win(){
     if(c1.innerHTML !="" && c1.innerHTML == c5.innerHTML && c5.innerHTML == c9.innerHTML)
     {
         if(winCheck(c1.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
+
         }
         lockAll();
         win = true;
@@ -370,12 +402,16 @@ function win(){
     else if(c3.innerHTML !="" && c3.innerHTML == c5.innerHTML && c5.innerHTML == c7.innerHTML)
     {
         if(winCheck(c3.innerHTML)){
-            display.innerHTML = "PLAYER WON";
+            display.innerHTML = "YOU WON";
             display.style.color = "green";
+            general.innerHTML = "";
+
         }
         else{
             display.innerHTML = "Imagine losing to a BOT";
             display.style.color =  "red";
+            general.innerHTML = "";
+
         }
         lockAll();
         win = true;

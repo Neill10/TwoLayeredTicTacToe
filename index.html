@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2 Layered Tic Tac Toe</title>
+    <title>Two Layered Tic Tac Toe</title>
 
     <!--Connecting your JS file to HTML-->
     <script src="script.js"></script>
@@ -14,11 +14,28 @@
 </head>
 <body onload="initialize()">
     <div>
-        <h1>Tic tac toe</h1>
+        <h1 id="title">Tic tac toe</h1>
     </div>
     <div id="choiceContainer">
         <button id="playX" onclick="setPlayer(0)">Play as X</button>
         <button id="playO" onclick="setPlayer(1)">Play as O</button>
+        <button id="reset" onclick="reset()">Reset</button>
+    </div>
+    <div id="info">
+        <div id="intro">
+            This is TWO layered Tic Tac Toe, a spin off of Tic Tac toe. 
+            <ul>
+
+                <li>The rules to win are the same as the original but with a twist</li>
+                <li>You may replace a Mark with your own<br>(provided that you haven't marked that block the previous turn)</li>
+                <li>To prevent a mark from being taken, you can lock it by placing your mark twice</li>
+                <li>Select a Mark to play as (X or O) and have fun!</li>
+
+            </ul>
+        </div>
+
+        <div id="general"></div>
+        <div id="textDisplay"></div>
     </div>
     <div id="tableContainer">
         <table>
@@ -39,11 +56,8 @@
             </tr>
         </table>
     </div>
-    <div id="general"></div>
-    <div id="textDisplay"></div>
-    <div>
-        <button id="reset" onclick="reset()">Reset</button>
-    </div>
+
+
     
     
     

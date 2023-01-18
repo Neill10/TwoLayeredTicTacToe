@@ -16,50 +16,52 @@
     <div>
         <h1 id="title">Tic tac toe</h1>
     </div>
-    <div id="choiceContainer">
-        <button id="playX" onclick="setPlayer(0)">Play as X</button>
-        <button id="playO" onclick="setPlayer(1)">Play as O</button>
-        <button id="reset" onclick="reset()">Reset</button>
-    </div>
-    <div id="info">
-        <div id="intro">
-            This is TWO layered Tic Tac Toe, a spin off of Tic Tac toe. 
-            <ul>
 
-                <li>The rules to win are the same as the original but with a twist</li>
-                <li>You may replace a Mark with your own<br>(provided that you haven't marked that block the previous turn)</li>
-                <li>To prevent a mark from being taken, you can lock it by placing your mark twice</li>
-                <li>Select a Mark to play as (X or O) and have fun!</li>
+    <div id="contentContainer">
+        <div>
+            <div id="choiceContainer">
+                <button id="playX" onclick="setPlayer(0)">Play as X</button>
+                <button id="playO" onclick="setPlayer(1)">Play as O</button>
+                <button id="reset" onclick="reset()">Reset</button>
+            </div>
+            <div id="info">
+                <div id="intro">
+                    <div id="introTitle">
+                    This is TWO layered Tic Tac Toe, a spin off of Tic Tac toe. 
+                    </div>
+                    <ul>
 
-            </ul>
+                        <li>The rules to win are the same as the original but with a twist</li>
+                        <li>You may replace a Mark with your own<br>(provided that you haven't marked that block the previous turn)</li>
+                        <li>To prevent a mark from being taken, you can lock it by placing your mark twice</li>
+                        <li>Select a Mark to play as (X or O) and have fun!</li>
+
+                    </ul>
+                </div>
+
+                <div id="general"></div>
+                <div id="textDisplay"></div>
+            </div>
         </div>
-
-        <div id="general"></div>
-        <div id="textDisplay"></div>
+        <div id="tableContainer">
+            <table>
+                <tr>
+                <td id="c1" onclick="change(c1)"></td>
+                <td id="c2" onclick="change(c2)"></td>
+                <td id="c3" onclick="change(c3)"></td>
+                </tr>
+                <tr>
+                    <td id="c4" onclick="change(c4)"></td>
+                    <td id="c5" onclick="change(c5)"></td>
+                    <td id="c6" onclick="change(c6)"></td>
+                </tr>
+                <tr>
+                    <td id="c7" onclick="change(c7)"></td>
+                    <td id="c8" onclick="change(c8)"></td>
+                    <td id="c9" onclick="change(c9)"></td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div id="tableContainer">
-        <table>
-            <tr>
-              <td id="c1" onclick="change(c1)"></td>
-              <td id="c2" onclick="change(c2)"></td>
-              <td id="c3" onclick="change(c3)"></td>
-            </tr>
-            <tr>
-                <td id="c4" onclick="change(c4)"></td>
-                <td id="c5" onclick="change(c5)"></td>
-                <td id="c6" onclick="change(c6)"></td>
-            </tr>
-            <tr>
-                <td id="c7" onclick="change(c7)"></td>
-                <td id="c8" onclick="change(c8)"></td>
-                <td id="c9" onclick="change(c9)"></td>
-            </tr>
-        </table>
-    </div>
-
-
-    
-    
-    
 </body>
 </html>

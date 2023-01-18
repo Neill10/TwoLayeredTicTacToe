@@ -2,7 +2,12 @@ body{
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-image: url("https://images2.alphacoders.com/966/thumb-1920-96622.jpg");
     background-attachment: fixed;
-
+}
+#contentContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 #title{
     text-align: center;
@@ -91,18 +96,37 @@ button:hover {
 
 }
 #intro{
-    text-align: center;
     padding: 1%;
     margin:1%;
     color: pink;
-    font-size: 25px;
+    font-size: 20px;
     text-shadow: none;
     font-weight: bold;
     background-color: rgba(21, 57, 99, 0.612);
     border-radius: 10px;
 }
+
+#introTitle{
+    text-align: center;
+}
 #general, #info{
-    font-size: 30px;
+    text-align: center;
+    font-size: 40px;
     text-shadow: grey 3px 3px;
     font-weight: bold;
+}
+
+@media screen and (max-width:700px) {
+    #contentContainer{
+        display: inline;
+    }
+    table{
+        width: 100;
+    }
+    td{
+        text-align: center;
+        font-size: 50px;
+        width: 80px;
+        height: 80px;
+    }
 }
